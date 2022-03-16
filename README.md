@@ -84,7 +84,7 @@ If you don't want to use one of the community base images, consider using a mini
 
 Making sure your application started quickly has always been a goal.
 But it's even more important in containers, which are often run at scale, and moved around between different servers.
-To achieve this, prefer small-sized base images, exclude unnecessary packages or libraries, prefer small-sized dependencies, copy only necessary files to the container, use multi-stage builds, use Ahead of Time compilation when possible, be aware of any tweaks you might make to your framework, etc.
+To achieve this, for example, prefer small-sized base images, exclude unnecessary packages or libraries, prefer small-sized dependencies, copy only necessary files to the container, use multi-stage builds, use Ahead of Time compilation when possible, be aware of any tweaks you might make to your framework, etc.
 
 ## Use specific image versions
 
@@ -250,7 +250,6 @@ Layers in an image are good but having too many adds complexity and hurts effici
 Each layer increases the size of the image since they are cached.
 Therefore, as the number of layers increases, the size also increases.
 It's a good idea to combine the RUN, COPY, and ADD commands as much as possible since they create layers.
-Therefore, as the number of layers increases, the size also increases.
 Limit the images you build to about 5-20 layers, including the base image's layers.
 Alternatively, you can use multi-stage builds.
 
@@ -278,8 +277,8 @@ By following this best practice, you're effectively enforcing container immutabi
 To follow this best practice, try to avoid:
 
 ```dockerfile
-FROM ubuntu:20.04
-RUN useradd −u 1001 app
+FROM alpine:3.14
+RUN adduser -u 1001 -D app
 COPY --chown=app:app . /app
 USER app
 ENTRYPOINT /app/entrypoint.sh
